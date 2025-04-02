@@ -44,6 +44,10 @@ body {
 
 /* フォームのスタイル */
 
+h2 {
+  text-align: center;
+}
+
 .textBox input,
 .textBox textarea {
   width: 45%;
@@ -53,6 +57,12 @@ body {
   border-radius: 4px;
   font-size: 16px;
   font-family: inherit; /* 親要素のフォントを引き継ぐ */
+}
+
+.search {
+  display: flex;
+  align-items: center;  /* 垂直方向に中央揃え */
+  gap: 10px;            /* 要素間のスペースを10pxに設定 */
 }
 
 .inputRow {
@@ -85,6 +95,7 @@ select {
 }
 
 .textBox button {
+  margin-left: auto;
   margin-right: 10px;
   margin-top: 10px;
   padding: 10px;
@@ -97,16 +108,23 @@ select {
   transition: background-color 0.3s;  /* 背景カラーの変更にトランジションを追加 */
 }
 
+.search button {
+  margin-right: 10px;
+  margin-top: 0px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;  /* 背景カラーの変更にトランジションを追加 */
+}
+
 .buttonContainer {
   display: flex;
   width: 100%;
   margin-top: 10px;
-}
-
-.textBox button:last-child { /*最後のボタンのスタイル*/
-  margin-left: auto;
-  align-self: center;
-  margin-right: 0;
 }
 
 .textBox button:hover {

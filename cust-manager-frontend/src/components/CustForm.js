@@ -61,10 +61,10 @@ const CustForm = ({ addCust }) => {
     <div>
       {/* <h2>顧客情報の新規追加</h2> */}
       <div className="textBox">
-        <div className="seach">
+        <div className="search">
           <input
             type="text"
-            placeholder="顧客情報検索"
+            placeholder="顧客名で検索"
             value={cust.title}
             onChange={(e) => setCust(e.target.value)}
           />

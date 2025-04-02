@@ -59,23 +59,27 @@ const CustForm = ({ addCust }) => {
 
   return (
     <div>
-      <h2>顧客情報の新規追加</h2>
+      {/* <h2>顧客情報の新規追加</h2> */}
       <div className="textBox">
-        <input
-          type="text"
-          placeholder="顧客情報タイトル"
-          value={cust.title}
-          onChange={(e) => setCust(e.target.value)}
-        />
-        <br />
-        <textarea
+        <div className="seach">
+          <input
+            type="text"
+            placeholder="顧客情報検索"
+            value={cust.title}
+            onChange={(e) => setCust(e.target.value)}
+          />
+          <br />
+          <button onClick={handleAddCust}>フィルタリング</button>
+          <button onClick={handleAddCust}>顧客情報追加</button>
+        </div>
+        {/* <textarea
           placeholder="顧客情報の説明"
           value={cust.description}
           onChange={(e) => setCust(e.target.value)}
           rows="2"
-        />
+        /> */}
         <br />
-        <div className="inputRow">
+        {/* <div className="inputRow">
           <div className="inputGroup">
             <label>期限</label>
             <input
@@ -98,9 +102,9 @@ const CustForm = ({ addCust }) => {
               ))}
             </select>
           </div>
-        </div>
+        </div> */}
         <div className="buttonContainer">
-          <button onClick={handleAddCust}>追加</button>
+          {/* <button onClick={handleAddCust}>追加</button> */}
           <button onClick={handleLogout}>ログアウト</button>
         </div>
       </div>

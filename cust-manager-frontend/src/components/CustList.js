@@ -26,7 +26,7 @@ const CustList = () => {
 
   return (
     <div>
-      <h2>顧客情報一覧表</h2>
+      <h2>顧客一覧</h2>
       <ul>
         {custs.map((cust) => (
           <li key={cust.id}>

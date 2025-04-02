@@ -1,28 +1,28 @@
-// TaskPage.js
+// CustPage.js
 import React from "react";
-import TaskForm from "../components/TaskForm";
-import TaskList from "../components/TaskList";
-import taskService from "../services/taskService";
+import CustForm from "../components/CustForm";
+import CustList from "../components/CustList";
+import custService from "../services/custService";
 
-function TaskPage() {
-  const addTask = async (title, description) => {
+function CustPage() {
+  const addCust = async (title, description) => {
     try {
-      await taskService.addTask(title, description); // タスク追加のサービスメソッドを呼び出す
-      alert("タスクが正常に追加されました");
+      await custService.addCust(title, description); // 顧客管理追加のサービスメソッドを呼び出す
+      alert("顧客管理が正常に追加されました");
     } catch (err) {
-      console.error("タスク追加時のエラー:", err);
-      alert("タスクの追加に失敗しました");
+      console.error("顧客管理追加時のエラー:", err);
+      alert("顧客管理の追加に失敗しました");
     }
   };
 
   return (
-    <div className="taskPage">
-      <h1>タスク管理ページ</h1>
-      <TaskList /> {/* タスク一覧コンポーネントを表示 */}
-      <TaskForm addTask={addTask} />{" "}
-      {/* タスク追加フォームを表示。addTask関数をpropとして渡す */}
+    <div className="CustPage">
+      <h1>顧客管理管理ページ</h1>
+      <CustList /> {/* 顧客管理一覧コンポーネントを表示 */}
+      <CustForm addCust={addCust} />{" "}
+      {/* 顧客管理追加フォームを表示。addCust関数をpropとして渡す */}
     </div>
   );
 }
 
-export default TaskPage;
+export default CustPage;

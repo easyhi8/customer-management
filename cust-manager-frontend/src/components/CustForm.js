@@ -64,7 +64,7 @@ const CustForm = ({ addCust }) => {
         <input
           type="text"
           placeholder="顧客情報タイトル"
-          value={Cust.title}
+          value={cust.title}
           onChange={(e) => setCust(e.target.value)}
         />
         <br />

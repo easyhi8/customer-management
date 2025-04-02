@@ -70,14 +70,14 @@ const CustEdit = ({ updateCust }) => {
         <br />
         <input
           type="text"
-          value={Cust.title}
+          value={cust.title}
           onChange={(e) => setCust(e.target.value)}
         />
         <br />
         顧客情報内容
         <br />
         <textarea
-          value={Cust.description}
+          value={cust.description}
           onChange={(e) => setCust(e.target.value)}
           rows="2"
         />
@@ -88,14 +88,14 @@ const CustEdit = ({ updateCust }) => {
             <input
               type="date"
               id="dateInput"
-              value={Cust.deadline}
+              value={cust.deadline}
               onChange={(e) => setCust(e.target.value)}
             />
           </div>
           <div className="inputGroup">
             <label>ステータス</label>
             <select
-              value={Cust.status}
+              value={cust.status}
               onChange={(e) => setCust(e.target.value)}
             >
               {statusOptions.map((option) => (

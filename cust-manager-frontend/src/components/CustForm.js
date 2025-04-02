@@ -1,7 +1,7 @@
 // CustForm.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import custService from "../services/CustService";
+import custService from "../services/custService";
 
 const CustForm = ({ addCust }) => {
   const statusOptions = ["未完了", "完了"]; // ステータス選択肢の配列

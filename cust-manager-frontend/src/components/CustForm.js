@@ -1,11 +1,11 @@
-// TaskForm.js
+// CustForm.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import taskService from "../services/taskService";
+import custService from "../services/CustService";
 
-const TaskForm = ({ addTask }) => {
+const CustForm = ({ addCust }) => {
   const statusOptions = ["未完了", "完了"]; // ステータス選択肢の配列
-  const [task, setTask] = useState({
+  const [cust, setCust] = useState({
     title: "",
     description: "",
     deadline: "",
@@ -16,12 +16,12 @@ const TaskForm = ({ addTask }) => {
   // コンポーネントがマウントされたときに期限を今日の日付に設定するためのuseEffectフック
   useEffect(() => {
     const today = new Date().toISOString().split("T")[0]; // 今日の日付を取得
-    setTask((prev) => ({ ...prev, deadline: today })); // 期限を今日の日付に設定
+    setCust((prev) => ({ ...prev, deadline: today })); // 期限を今日の日付に設定
   }, []);
 
   // フォームの状態をリセットする関数
   const resetForm = () => {
-    setTask({
+    setCust({
       title: "",
       description: "",
       deadline: new Date().toISOString().split("T")[0],
@@ -29,26 +29,26 @@ const TaskForm = ({ addTask }) => {
     });
   };
 
-  const handleAddTask = async () => {
-    const { title, description, deadline, status } = task;
+  const handleAddCust = async () => {
+    const { title, description, deadline, status } = cust;
     if (!title || !description || !deadline || !status) {
       alert("すべてのフィールドを入力してください");
       return;
     }
     console.log("Sending data:", { title, description, deadline, status });
     try {
-      const response = await taskService.addTask(
+      const response = await custService.addCust(
         title,
         description,
         deadline,
         status
-      ); // タスクを追加するためのAPI呼び出し
+      ); // 顧客情報を追加するためのAPI呼び出し
       console.log(response.data);
-      alert("タスクが正常に追加されました");
+      alert("顧客情報が正常に追加されました");
       resetForm(); // フォームをリセット
     } catch (error) {
-      console.error("Error adding task:", error);
-      alert("タスクの追加中にエラーが発生しました");
+      console.error("Error adding Cust:", error);
+      alert("顧客情報の追加中にエラーが発生しました");
     }
   };
 
@@ -59,19 +59,19 @@ const TaskForm = ({ addTask }) => {
 
   return (
     <div>
-      <h2>タスクの新規追加</h2>
+      <h2>顧客情報の新規追加</h2>
       <div className="textBox">
         <input
           type="text"
-          placeholder="タスクタイトル"
-          value={task.title}
-          onChange={(e) => setTask(e.target.value)}
+          placeholder="顧客情報タイトル"
+          value={Cust.title}
+          onChange={(e) => setCust(e.target.value)}
         />
         <br />
         <textarea
-          placeholder="タスクの説明"
-          value={task.description}
-          onChange={(e) => setTask(e.target.value)}
+          placeholder="顧客情報の説明"
+          value={cust.description}
+          onChange={(e) => setCust(e.target.value)}
           rows="2"
         />
         <br />
@@ -81,15 +81,15 @@ const TaskForm = ({ addTask }) => {
             <input
               type="date"
               id="dateInput"
-              value={task.deadline}
-              onChange={(e) => setTask(e.target.value)}
+              value={cust.deadline}
+              onChange={(e) => setCust(e.target.value)}
             />
           </div>
           <div className="inputGroup">
             <label>ステータス</label>
             <select
-              value={task.status}
-              onChange={(e) => setTask(e.target.value)}
+              value={cust.status}
+              onChange={(e) => setCust(e.target.value)}
             >
               {statusOptions.map((option) => (
                 <option key={option} value={option}>
@@ -100,7 +100,7 @@ const TaskForm = ({ addTask }) => {
           </div>
         </div>
         <div className="buttonContainer">
-          <button onClick={handleAddTask}>追加</button>
+          <button onClick={handleAddCust}>追加</button>
           <button onClick={handleLogout}>ログアウト</button>
         </div>
       </div>
@@ -108,4 +108,4 @@ const TaskForm = ({ addTask }) => {
   );
 };
 
-export default TaskForm;
+export default CustForm;

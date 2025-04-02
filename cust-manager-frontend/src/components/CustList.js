@@ -31,7 +31,7 @@ const CustList = () => {
         {custs.map((cust) => (
           <li key={cust.id}>
             <div className="cust-title">
-              <Link to={`/custs/${Cust.id}`}>{cust.title}</Link>{" "}
+              <Link to={`/custs/${cust.id}`}>{cust.title}</Link>{" "}
               {/* 顧客情報タイトルに顧客情報詳細ページへ遷移するリンクを設定 */}
             </div>
           </li>

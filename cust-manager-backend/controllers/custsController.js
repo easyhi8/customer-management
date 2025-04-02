@@ -1,5 +1,5 @@
 // custsController.js
-const custModel = require("../models/taskModel");
+const custModel = require("../models/custModel");
 
 // エラーハンドリング関数
 const handleError = (res, error, message) => {
@@ -18,7 +18,7 @@ const getAllCusts = async (req, res) => {
 };
 
 // 単一の顧客情報を取得する
-const getcust = async (req, res) => {
+const getCust = async (req, res) => {
   const custId = req.params.id; // URLパラメータからIDを取得
   try {
     const cust = await custModel.getCust(custId);

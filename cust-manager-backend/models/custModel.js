@@ -4,7 +4,7 @@ const db = require("../config/database");
 // 全顧客情報を取得する
 const getAllCusts = () => {
   return new Promise((resolve, reject) => {
-    const sqlSelect = "SELECT * FROM tasks ORDER BY id";
+    const sqlSelect = "SELECT * FROM custs ORDER BY id";
     db.query(sqlSelect, (err, results) => {
       if (err) return reject(err);
       resolve(results);

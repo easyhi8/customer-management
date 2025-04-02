@@ -31,8 +31,8 @@ const AuthForm = () => {
       // 取得したトークンをローカルストレージに保存
       const token = response.data.token;
       localStorage.setItem("token", token);
-      // タスク管理ページへ遷移
-      navigate("/tasks");
+      // 顧客情報管理ページへ遷移
+      navigate("/custs");
 
       // 入力フィールドをリセット
       setUserName("");

@@ -2,12 +2,12 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const taskRoutes = require("./routes/task");
+const custRoutes = require("./routes/cust");
 
 // アプリケーションにJSONボディパーサーを追加
 app.use(bodyParser.json());
 // apiパスにタスク関連のルートを使用
-app.use("/api", taskRoutes);
+app.use("/api", custRoutes);
 
 // 環境変数からポート番号を取得。指定がなければ3001を使用
 const PORT = process.env.PORT || 3001;

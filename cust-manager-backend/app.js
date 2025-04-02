@@ -2,7 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const taskRoutes = require("./routes/tasks");
+const custRoutes = require("./routes/custs");
 const authRoutes = require("./routes/auth");
 
 // JSON形式のリクエストボディを解析するためのミドルウェアを追加
@@ -10,8 +10,8 @@ app.use(express.json());
 // CORSを有効にするためのミドルウェアを追加
 app.use(cors());
 
-// タスク関連のAPIルートを使用
-app.use("/api", taskRoutes);
+// 顧客情報関連のAPIルートを使用
+app.use("/api", custRoutes);
 // 認証関連のAPIルートを使用
 app.use("/api", authRoutes);
 

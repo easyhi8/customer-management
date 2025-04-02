@@ -1,37 +1,37 @@
-// taskService.js
+// custService.js
 import Axios from "axios";
 
-const getAllTasks = () => {
-  return Axios.get("http://localhost:3001/api/get/tasks"); // APIエンドポイントからすべてタスクを取得
+const getAllCusts = () => {
+  return Axios.get("http://localhost:3001/api/get/custs"); // APIエンドポイントからすべて顧客情報を取得
 };
 
-const getTask = (id) => {
-  return Axios.get(`http://localhost:3001/api/tasks/${id}`); // 指定したidのタスクを取得
+const getCust = (id) => {
+  return Axios.get(`http://localhost:3001/api/custs/${id}`); // 指定したidの顧客情報を取得
 };
 
-const addTask = (title, description, deadline, status) => {
-  return Axios.post("http://localhost:3001/api/tasks", {
+const addCust = (title, description, deadline, status) => {
+  return Axios.post("http://localhost:3001/api/custs", {
     title,
     description,
     deadline,
     status,
-  }); // タスクを追加するためのPOSTリクエスト
+  }); // 顧客情報を追加するためのPOSTリクエスト
 };
 
-const updateTask = (id, title, description, deadline, status) => {
-  return Axios.put(`http://localhost:3001/api/tasks/${id}`, {
+const updateCust = (id, title, description, deadline, status) => {
+  return Axios.put(`http://localhost:3001/api/custs/${id}`, {
     title,
     description,
     deadline,
     status,
-  }); // 指定したidのタスクを更新するためのPUTリクエスト
+  }); // 指定したidの顧客情報を更新するためのPUTリクエスト
 };
 
-const deleteTask = (id) => {
-  return Axios.delete(`http://localhost:3001/api/tasks/${id}`); // 指定したidのタスクを削除するためのDELETEリクエスト
+const deleteCust = (id) => {
+  return Axios.delete(`http://localhost:3001/api/custs/${id}`); // 指定したidの顧客情報を削除するためのDELETEリクエスト
 };
 
-//  taskServiceオブジェクトを作成し、すべての関数をプロパティとして追加
-const taskService = { getAllTasks, getTask, addTask, updateTask, deleteTask };
+//  custServiceオブジェクトを作成し、すべての関数をプロパティとして追加
+const custService = { getAllCusts, getCust, addCust, updateCust, deleteCust };
 
-export default taskService;
+export default custService;

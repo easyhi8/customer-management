@@ -1,8 +1,8 @@
-// taskModel.js
+// custModel.js
 const db = require("../config/database");
 
-// 全タスクを取得する
-const getAllTasks = () => {
+// 全顧客情報を取得する
+const getAllCusts = () => {
   return new Promise((resolve, reject) => {
     const sqlSelect = "SELECT * FROM tasks ORDER BY id";
     db.query(sqlSelect, (err, results) => {
@@ -12,9 +12,9 @@ const getAllTasks = () => {
   });
 };
 
-// 単一のタスクを取得する関数
-const getTask = (id) => {
-  const sqlSelect = "SELECT * FROM tasks WHERE id = ?";
+// 単一の顧客情報を取得する関数
+const getCust = (id) => {
+  const sqlSelect = "SELECT * FROM Custs WHERE id = ?";
   return new Promise((resolve, reject) => {
     db.query(sqlSelect, [id], (err, result) => {
       if (err) return reject(err);
@@ -23,29 +23,29 @@ const getTask = (id) => {
   });
 };
 
-// タスクを追加する
-const addTask = (task) => {
-  const { title, description, deadline, status } = task;
+// 顧客情報を追加する
+const addCust = (cust) => {
+  const { title, description, deadline, status } = cust;
   return new Promise((resolve, reject) => {
     const sqlInsert =
-      "INSERT INTO tasks (title, description, deadline, status) VALUES (?, ?, ?, ?)";
+      "INSERT INTO Custs (title, description, deadline, status) VALUES (?, ?, ?, ?)";
     db.query(
       sqlInsert,
       [title, description, deadline, status],
       (err, result) => {
         if (err) return reject(err);
-        resolve(result.insertId); // 新しく追加されたタスクのIDを返す
+        resolve(result.insertId); // 新しく追加された顧客情報のIDを返す
       }
     );
   });
 };
 
-// タスクを更新する
-const updateTask = (id, task) => {
-  const { title, description, deadline, status } = task;
+// 顧客情報を更新する
+const updateCust = (id, cust) => {
+  const { title, description, deadline, status } = cust;
   return new Promise((resolve, reject) => {
     const sqlUpdate =
-      "UPDATE tasks SET title = ?, description = ?, deadline = ?, status = ? WHERE id = ?";
+      "UPDATE Custs SET title = ?, description = ?, deadline = ?, status = ? WHERE id = ?";
     db.query(
       sqlUpdate,
       [title, description, deadline, status, id],
@@ -57,10 +57,10 @@ const updateTask = (id, task) => {
   });
 };
 
-// タスクを削除する
-const deleteTask = (id) => {
+// 顧客情報を削除する
+const deleteCust = (id) => {
   return new Promise((resolve, reject) => {
-    const sqlDelete = "DELETE FROM tasks WHERE id = ?";
+    const sqlDelete = "DELETE FROM custs WHERE id = ?";
     db.query(sqlDelete, [id], (err, result) => {
       if (err) return reject(err);
       resolve(result.affectedRows); // 削除された行数を返す
@@ -69,9 +69,9 @@ const deleteTask = (id) => {
 };
 
 module.exports = {
-  getAllTasks,
-  getTask,
-  addTask,
-  updateTask,
-  deleteTask,
+  getAllCusts,
+  getCust,
+  addCust,
+  updateCust,
+  deleteCust,
 };

@@ -1,38 +1,38 @@
-// TaskList.js
+// CustList.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const TaskList = () => {
-  const [tasks, setTasks] = useState([]);
+const CustList = () => {
+  const [custs, setCusts] = useState([]);
 
-  const API_BASE_URL = "http://localhost:3001/api/tasks";
+  const API_BASE_URL = "http://localhost:3001/api/custs";
 
-  // コンポーネントがマウントされたときにすべてのタスクを取得するためのuseEffectフック
+  // コンポーネントがマウントされたときにすべての顧客情報を取得するためのuseEffectフック
   useEffect(() => {
-    const getAllTasks = async () => {
+    const getAllCusts = async () => {
       try {
-        // タスクを取得するAPIリクエスト
+        // 顧客情報を取得するAPIリクエスト
         const response = await axios.get(`${API_BASE_URL}`);
         console.log(response.data);
-        setTasks(response.data);
+        setCusts(response.data);
       } catch (err) {
-        console.error("タスク取得時のエラー:", err);
+        console.error("顧客情報取得時のエラー:", err);
       }
     };
 
-    getAllTasks();
+    getAllCusts();
   }, []); // 空の依存配列で初回マウント時のみ実行
 
   return (
     <div>
-      <h2>タスク一覧表</h2>
+      <h2>顧客情報一覧表</h2>
       <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            <div className="task-title">
-              <Link to={`/tasks/${task.id}`}>{task.title}</Link>{" "}
-              {/* タスクタイトルにタスク詳細ページへ遷移するリンクを設定 */}
+        {custs.map((cust) => (
+          <li key={cust.id}>
+            <div className="cust-title">
+              <Link to={`/custs/${Cust.id}`}>{cust.title}</Link>{" "}
+              {/* 顧客情報タイトルに顧客情報詳細ページへ遷移するリンクを設定 */}
             </div>
           </li>
         ))}
@@ -41,4 +41,4 @@ const TaskList = () => {
   );
 };
 
-export default TaskList;
+export default CustList;

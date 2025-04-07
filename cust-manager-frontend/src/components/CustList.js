@@ -22,7 +22,9 @@ const CustList = ({ custs }) => {
               <td>{cust.phone}</td>
               <td>{cust.company}</td>
               <td>
-                <Link to={`/custs/${cust.id}`}>詳細を見る</Link>
+              <Link className = "detail" to={`/custs/${cust.id}`}>
+                <button>詳細</button> {/* 詳細ボタン */}
+              </Link>
               </td>
             </tr>
           ))}

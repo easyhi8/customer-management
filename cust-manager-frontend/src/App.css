@@ -30,7 +30,7 @@ body {
 
 /* ダークモード対応 */
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background-color: #000;
     --text-color: #ffffff;
@@ -40,7 +40,7 @@ body {
   a:visited {
     color: #be76f5;
   }
-}
+} */
 
 /* フォームのスタイル */
 
@@ -140,10 +140,10 @@ select {
 
 .buttonContainer {
   display: flex;
-  width: 100%;
+  width: 32%;
   margin-top: 10px;
+  justify-content: flex-start;  /* ボタンを左寄せ */
 }
-
 
 /* リストのスタイル */
 
@@ -173,6 +173,20 @@ th, td {
   text-align: left;
   background-color: #f4f4f4;
 }
+
+td {
+  background-color: #fff;
+}
+.detailTable th {
+  background-color: #fff;
+  border: none;
+  width: 120px;
+}
+
+.detailTable td {
+  border: none;
+}
+
 
 
 /* メディアクエリを追加してレスポンシブ対応 */

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import custService from "../services/custService";  // 顧客情報を取得するサービス
+import CustList from "../components/CustList";
 
 const CustForm = ({ addCust }) => {
   const [searchTerm, setSearchTerm] = useState('');  // 検索キーワード
@@ -82,6 +83,7 @@ const CustForm = ({ addCust }) => {
 
   return (
     <div>
+      <h2>顧客一覧</h2>
       <div className="textBox">
         <div className="search">
           <input
@@ -95,22 +97,8 @@ const CustForm = ({ addCust }) => {
           <button onClick={handleAddCust}>顧客情報追加</button>
         </div>
         <br />
-        
-        {/* 絞り込んだ顧客情報のリストを表示 */}
-        <div className="customerList">
-          <h3>絞り込まれた顧客リスト</h3>
-          <ul>
-            {filteredCusts.length > 0 ? (
-              filteredCusts.map((customer, index) => (
-                <li key={index}>
-                  {customer.name} - {customer.email} - {customer.phone}
-                </li>
-              ))
-            ) : (
-              <p>絞り込んだ顧客はありません。</p>
-            )}
-          </ul>
-        </div>
+
+        <CustList /> {/* 顧客管理一覧コンポーネントを表示 */}
 
         <div className="buttonContainer">
           <button onClick={handleLogout}>ログアウト</button>

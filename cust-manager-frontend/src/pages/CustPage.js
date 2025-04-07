@@ -1,7 +1,6 @@
 // CustPage.js
 import React from "react";
 import CustForm from "../components/CustForm";
-import CustList from "../components/CustList";
 import custService from "../services/custService";
 
 function CustPage() {
@@ -18,7 +17,6 @@ function CustPage() {
   return (
     <div className="CustPage">
       <h1>顧客管理管理ページ</h1>
-      <CustList /> {/* 顧客管理一覧コンポーネントを表示 */}
       <CustForm addCust={addCust} />{" "}
       {/* 顧客管理追加フォームを表示。addCust関数をpropとして渡す */}
     </div>

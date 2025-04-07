@@ -145,6 +145,10 @@ select {
   justify-content: flex-start;  /* ボタンを左寄せ */
 }
 
+.buttonContainer button {
+  margin-left: 0;
+}
+
 /* リストのスタイル */
 
 ul {
@@ -160,7 +164,6 @@ li {
   border-radius: 4px;
 }
 
-/* App.cssなどに追加 */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -181,6 +184,7 @@ td {
   background-color: #fff;
   border: none;
   width: 120px;
+  padding-left: 0;
 }
 
 .detailTable td {

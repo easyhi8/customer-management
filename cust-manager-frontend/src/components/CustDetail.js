@@ -31,7 +31,7 @@ const CustDetail = () => {
   }, [id]); // idが変更されたときに再実行
 
   const handleEdit = () => {
-    navigate(`/custs/edit/${id}`); // 顧客情報編集ページへ遷移
+    navigate(`/custs/edit/${id}`, { state: { cust } }); // 顧客情報をstateで渡して編集ページに遷移
   };
 
   const handleBack = () => {
@@ -67,7 +67,7 @@ const CustDetail = () => {
       <h2>顧客情報詳細</h2>
       <div className="textBox">
         <h3>{cust.name}</h3> {/* 顧客名をh3で表示 */}
-        <table className = "detailTable">
+        <table className="detailTable">
           <tbody>
             <tr>
               <th>メールアドレス:</th>
@@ -79,7 +79,7 @@ const CustDetail = () => {
             </tr>
             <tr>
               <th>住所:</th>
-              <td>{cust.adrress}</td>
+              <td>{cust.address}</td>
             </tr>
             <tr>
               <th>会社名:</th>

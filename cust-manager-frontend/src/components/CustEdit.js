@@ -1,111 +1,99 @@
-// CustEdit
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
 
-const CustEdit = ({ updateCust }) => {
-  const { id } = useParams(); // URLから顧客idを取得
-  const [cust, setCust] = useState({
+const CustEdit = () => {
+  const navigate = useNavigate();
+  const location = useLocation(); // `state` を取得するために useLocation を使用
+  const { cust } = location.state || {}; // CustDetailから渡された顧客情報
+
+  const [custData, setCustData] = useState({
     name: "",
     email: "",
     phone: "",
+    address: "",
     company: "",
   });
-  const navigate = useNavigate(); // ページ遷移に使用するためのuseNavigateフックを初期化
 
   const API_BASE_URL = "http://localhost:3001/api/custs";
 
-  // コンポーネントがマウントされたときに顧客情報の詳細を取得するためのuseEffectフック
   useEffect(() => {
-    const getCust = async () => {
-      try {
-        // APIから顧客情報詳細を取得
-        const response = await axios.get(`${API_BASE_URL}/${id}`);
-        console.log(response.data);
-        // 取得したデータで状態を更新
-        setCust(response.data);
-      } catch (err) {
-        console.error(
-          "顧客情報取得時のエラー:",
-          err.response ? err.response.data : err.message
-        );
-      }
-    };
+    if (cust) {
+      setCustData(cust); // `state` から受け取った顧客データをフォームにセット
+    }
+  }, [cust]);
 
-    getCust();
-  }, [id]); // idが変更されたときに再実行
-
-  const handleSave = async (e) => {
-    const { name, email, phone, company } = cust;
-    if (!name || !email || !phone || !company) {
-      alert("顧客情報タイトルと顧客情報の説明を入力してください");
+  const handleSave = async () => {
+    const { name, email, phone, address, company } = custData;
+    if (!name || !email || !phone || !address || !company) {
+      alert("すべてのフィールドを入力してください");
       return;
     }
     try {
       // APIを使用して顧客情報を更新
-      await axios.put(`${API_BASE_URL}/${id}`, {
+      await axios.put(`${API_BASE_URL}/${cust.id}`, {
         name,
         email,
         phone,
+        address,
         company,
       });
       alert("顧客情報が更新されました");
-      navigate(`/custs/${id}`); // 顧客情報詳細ページへ遷移
+      navigate(`/custs/${cust.id}`); // 顧客情報詳細ページへ遷移
     } catch (error) {
       console.error("顧客情報更新時のエラー:", error);
     }
   };
 
   const handleCancel = () => {
-    navigate(`/custs/${id}`);
+    navigate(`/custs`); // 顧客一覧ページに遷移
   };
-
-  const companyOptions = ["未完了", "完了"]; // ステータス選択肢の配列
 
   return (
     <div>
       <h2>顧客情報編集</h2>
       <div className="textBox">
-        顧客情報タイトル
-        <br />
-        <input
-          type="text"
-          value={cust.name}
-          onChange={(e) => setCust(e.target.value)}
-        />
-        <br />
-        顧客情報内容
-        <br />
-        <textarea
-          value={cust.email}
-          onChange={(e) => setCust(e.target.value)}
-          rows="2"
-        />
-        <br />
-        <div className="inputRow">
-          <div className="inputGroup">
-            <label>期限</label>
-            <input
-              type="date"
-              id="dateInput"
-              value={cust.phone}
-              onChange={(e) => setCust(e.target.value)}
-            />
-          </div>
-          <div className="inputGroup">
-            <label>ステータス</label>
-            <select
-              value={cust.company}
-              onChange={(e) => setCust(e.target.value)}
-            >
-              {companyOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
+        <div className="inputGroup">
+          <label>顧客名:</label>
+          <input
+            type="text"
+            value={custData.name}
+            onChange={(e) => setCustData({ ...custData, name: e.target.value })}
+          />
         </div>
+        <div className="inputGroup">
+          <label>メールアドレス:</label>
+          <input
+            type="email"
+            value={custData.email}
+            onChange={(e) => setCustData({ ...custData, email: e.target.value })}
+          />
+        </div>
+        <div className="inputGroup">
+          <label>電話番号:</label>
+          <input
+            type="text"
+            value={custData.phone}
+            onChange={(e) => setCustData({ ...custData, phone: e.target.value })}
+          />
+        </div>
+        <div className="inputGroup">
+          <label>住所:</label>
+          <input
+            type="text"
+            value={custData.address}
+            onChange={(e) => setCustData({ ...custData, address: e.target.value })}
+          />
+        </div>
+        <div className="inputGroup">
+          <label>会社名:</label>
+          <input
+            type="text"
+            value={custData.company}
+            onChange={(e) => setCustData({ ...custData, company: e.target.value })}
+          />
+        </div>
+
         <div className="buttonContainer">
           <button onClick={handleSave}>保存</button>
           <button onClick={handleCancel}>キャンセル</button>

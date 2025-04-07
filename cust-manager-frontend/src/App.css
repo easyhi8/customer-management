@@ -75,12 +75,16 @@ h2 {
 .inputGroup {
   display: flex;
   flex-direction: column; /* 縦に配置 */
-  width: 45%;
+  width: 100%;
 }
 
 .inputGroup label {
   display: block;
   width: 100%;
+}
+
+.inputGroup input {
+  width: 96%;
 }
 
 #dateInput,

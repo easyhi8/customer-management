@@ -94,6 +94,9 @@ select {
   margin: 0;
 }
 
+.textBox button:hover {
+  background-color: #07b0e8; /* ホバー時の背景色を変更 */
+}
 .textBox button {
   margin-left: auto;
   margin-right: 10px;
@@ -121,15 +124,16 @@ select {
   transition: background-color 0.3s;  /* 背景カラーの変更にトランジションを追加 */
 }
 
+.search button:hover {
+  background-color:#56c75a
+}
+
 .buttonContainer {
   display: flex;
   width: 100%;
   margin-top: 10px;
 }
 
-.textBox button:hover {
-  background-color: #0056b3; /* ホバー時の背景色を変更 */
-}
 
 /* リストのスタイル */
 

@@ -20,16 +20,17 @@ const CustForm = ({ addCust }) => {
   useEffect(() => {
     const fetchCusts = async () => {
       try {
-        const response = await custService.getCusts();  // 顧客情報を取得するAPI呼び出し
+        const response = await custService.getAllCusts();  // 顧客情報を取得するAPI呼び出し
         setCusts(response.data);  // 顧客情報を状態に保存
         setFilteredCusts(response.data);  // 絞り込み前の顧客リストをセット
       } catch (error) {
         console.error("顧客データの取得に失敗しました:", error);
       }
     };
-
+  
     fetchCusts();  // 初期データを取得
   }, []);  // 空の依存配列でマウント時のみ実行
+  
 
   // 顧客名で絞り込む関数
   const handleSearchCust = () => {

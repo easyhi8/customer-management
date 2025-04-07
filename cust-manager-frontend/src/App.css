@@ -157,11 +157,9 @@ th, td {
   padding: 8px;
   border: 1px solid #ddd;
   text-align: left;
-}
-
-th {
   background-color: #f4f4f4;
 }
+
 
 /* メディアクエリを追加してレスポンシブ対応 */
 

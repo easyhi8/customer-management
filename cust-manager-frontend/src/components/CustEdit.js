@@ -6,10 +6,10 @@ import { useParams, useNavigate } from "react-router-dom";
 const CustEdit = ({ updateCust }) => {
   const { id } = useParams(); // URLから顧客idを取得
   const [cust, setCust] = useState({
-    title: "",
-    description: "",
-    deadline: "",
-    status: "",
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
   });
   const navigate = useNavigate(); // ページ遷移に使用するためのuseNavigateフックを初期化
 
@@ -36,18 +36,18 @@ const CustEdit = ({ updateCust }) => {
   }, [id]); // idが変更されたときに再実行
 
   const handleSave = async (e) => {
-    const { title, description, deadline, status } = cust;
-    if (!title || !description || !deadline || !status) {
+    const { name, email, phone, company } = cust;
+    if (!name || !email || !phone || !company) {
       alert("顧客情報タイトルと顧客情報の説明を入力してください");
       return;
     }
     try {
       // APIを使用して顧客情報を更新
       await axios.put(`${API_BASE_URL}/${id}`, {
-        title,
-        description,
-        deadline,
-        status,
+        name,
+        email,
+        phone,
+        company,
       });
       alert("顧客情報が更新されました");
       navigate(`/custs/${id}`); // 顧客情報詳細ページへ遷移
@@ -60,7 +60,7 @@ const CustEdit = ({ updateCust }) => {
     navigate(`/custs/${id}`);
   };
 
-  const statusOptions = ["未完了", "完了"]; // ステータス選択肢の配列
+  const companyOptions = ["未完了", "完了"]; // ステータス選択肢の配列
 
   return (
     <div>
@@ -70,14 +70,14 @@ const CustEdit = ({ updateCust }) => {
         <br />
         <input
           type="text"
-          value={cust.title}
+          value={cust.name}
           onChange={(e) => setCust(e.target.value)}
         />
         <br />
         顧客情報内容
         <br />
         <textarea
-          value={cust.description}
+          value={cust.email}
           onChange={(e) => setCust(e.target.value)}
           rows="2"
         />
@@ -88,17 +88,17 @@ const CustEdit = ({ updateCust }) => {
             <input
               type="date"
               id="dateInput"
-              value={cust.deadline}
+              value={cust.phone}
               onChange={(e) => setCust(e.target.value)}
             />
           </div>
           <div className="inputGroup">
             <label>ステータス</label>
             <select
-              value={cust.status}
+              value={cust.company}
               onChange={(e) => setCust(e.target.value)}
             >
-              {statusOptions.map((option) => (
+              {companyOptions.map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>

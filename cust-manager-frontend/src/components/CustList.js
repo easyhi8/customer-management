@@ -17,12 +17,12 @@ const CustList = ({ custs }) => {
         <tbody>
           {custs.map((cust) => (
             <tr key={cust.id}>
-              <td>{cust.name}</td> {/* 顧客名 */}
-              <td>{cust.email}</td> {/* メールアドレス */}
-              <td>{cust.phone}</td> {/* 電話番号 */}
-              <td>{cust.company}</td> {/* 会社名 */}
+              <td>{cust.name}</td>
+              <td>{cust.email}</td>
+              <td>{cust.phone}</td>
+              <td>{cust.company}</td>
               <td>
-                <Link to={`/custs/${cust.id}`}>詳細を見る</Link> {/* 顧客詳細ページへのリンク */}
+                <Link to={`/custs/${cust.id}`}>詳細を見る</Link>
               </td>
             </tr>
           ))}

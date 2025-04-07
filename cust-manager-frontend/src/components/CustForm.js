@@ -7,13 +7,6 @@ const CustForm = ({ addCust }) => {
   const [searchTerm, setSearchTerm] = useState('');  // 検索キーワード
   const [custs, setCusts] = useState([]);  // 顧客情報のリスト（最初は空の配列）
   const [filteredCusts, setFilteredCusts] = useState([]);  // 絞り込んだ顧客リスト
-  const [cust, setCust] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    detail: "",
-  });
   const navigate = useNavigate();  // ページ遷移用フック
 
   // コンポーネントがマウントされたときに顧客情報を取得する
@@ -31,7 +24,6 @@ const CustForm = ({ addCust }) => {
     fetchCusts();  // 初期データを取得
   }, []);  // 空の依存配列でマウント時のみ実行
   
-
   // 顧客名で絞り込む関数
   const handleSearchCust = () => {
     const filtered = custs.filter(customer =>
@@ -40,40 +32,10 @@ const CustForm = ({ addCust }) => {
     setFilteredCusts(filtered);  // 絞り込んだ顧客情報を更新
   };
 
-  // 顧客情報追加の関数
-  const handleAddCust = async () => {
-    const { name, email, phone, company, detail } = cust;
-    if (!name || !email || !phone || !company || !detail) {
-      alert("すべてのフィールドを入力してください");
-      return;
-    }
-    console.log("Sending data:", { name, email, phone, company, detail });
-    try {
-      const response = await custService.addCust(
-        name,
-        email,
-        phone,
-        company,
-        detail,
-      );  // 顧客情報を追加するためのAPI呼び出し
-      console.log(response.data);
-      alert("顧客情報が正常に追加されました");
-      resetForm();  // フォームをリセット
-    } catch (error) {
-      console.error("Error adding Cust:", error);
-      alert("顧客情報の追加中にエラーが発生しました");
-    }
-  };
-
-  // フォームリセット用の関数
-  const resetForm = () => {
-    setCust({
-      name: "",
-      email: "",
-      phone: "",
-      company: "",
-      detail: "",
-    });
+  // 顧客情報追加の関数（単純なページ遷移）
+  const handleAddCust = () => {
+    // 新規顧客の追加なしで単純に遷移させる
+    navigate("/custs/edit/新規顧客ID");  // ここで新規顧客IDに遷移（仮のID）
   };
 
   // ログアウト処理

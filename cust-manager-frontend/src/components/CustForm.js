@@ -98,7 +98,8 @@ const CustForm = ({ addCust }) => {
         </div>
         <br />
 
-        <CustList /> {/* 顧客管理一覧コンポーネントを表示 */}
+        {/* filteredCustsをCustListに渡す */}
+        <CustList custs={filteredCusts} /> {/* 顧客管理一覧コンポーネントを表示 */}
 
         <div className="buttonContainer">
           <button onClick={handleLogout}>ログアウト</button>

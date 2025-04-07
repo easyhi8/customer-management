@@ -1,29 +1,7 @@
-// CustList.js
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import { Link } from "react-router-dom";
 
-const CustList = () => {
-  const [custs, setCusts] = useState([]);
-
-  const API_BASE_URL = "http://localhost:3001/api/custs";
-
-  // コンポーネントがマウントされたときにすべての顧客情報を取得するためのuseEffectフック
-  useEffect(() => {
-    const getAllCusts = async () => {
-      try {
-        // 顧客情報を取得するAPIリクエスト
-        const response = await axios.get(`${API_BASE_URL}`);
-        console.log(response.data);
-        setCusts(response.data);
-      } catch (err) {
-        console.error("顧客情報取得時のエラー:", err);
-      }
-    };
-
-    getAllCusts();
-  }, []); // 空の依存配列で初回マウント時のみ実行
-
+const CustList = ({ custs }) => {
   return (
     <div>
       <table>

@@ -1,106 +1,78 @@
-// CustForm.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import custService from "../services/CustService";
+import custService from "../services/custService";  // 顧客情報を取得するサービス
+import CustList from "../components/CustList";
 
 const CustForm = ({ addCust }) => {
-  const statusOptions = ["未完了", "完了"]; // ステータス選択肢の配列
-  const [cust, setCust] = useState({
-    title: "",
-    description: "",
-    deadline: "",
-    status: statusOptions[0],
-  });
-  const navigate = useNavigate(); // ページ遷移に使用するためのuseNavigateフックを初期化
+  const [searchTerm, setSearchTerm] = useState('');  // 検索キーワード
+  const [custs, setCusts] = useState([]);  // 顧客情報のリスト（最初は空の配列）
+  const [filteredCusts, setFilteredCusts] = useState([]);  // 絞り込んだ顧客リスト
+  const navigate = useNavigate();  // ページ遷移用フック
 
-  // コンポーネントがマウントされたときに期限を今日の日付に設定するためのuseEffectフック
+  // コンポーネントがマウントされたときに顧客情報を取得する
   useEffect(() => {
-    const today = new Date().toISOString().split("T")[0]; // 今日の日付を取得
-    setCust((prev) => ({ ...prev, deadline: today })); // 期限を今日の日付に設定
-  }, []);
-
-  // フォームの状態をリセットする関数
-  const resetForm = () => {
-    setCust({
-      title: "",
-      description: "",
-      deadline: new Date().toISOString().split("T")[0],
-      status: statusOptions[0],
-    });
+    const fetchCusts = async () => {
+      try {
+        const response = await custService.getAllCusts();  // 顧客情報を取得するAPI呼び出し
+        setCusts(response.data);  // 顧客情報を状態に保存
+        setFilteredCusts(response.data);  // 絞り込み前の顧客リストをセット
+      } catch (error) {
+        console.error("顧客データの取得に失敗しました:", error);
+      }
+    };
+  
+    fetchCusts();  // 初期データを取得
+  }, []);  // 空の依存配列でマウント時のみ実行
+  
+  // 顧客名で絞り込む関数
+  const handleSearchCust = () => {
+    const filtered = custs.filter(customer =>
+      customer.name.toLowerCase().includes(searchTerm.toLowerCase())  // 顧客名に検索キーワードが含まれるか
+    );
+    setFilteredCusts(filtered);  // 絞り込んだ顧客情報を更新
   };
 
-  const handleAddCust = async () => {
-    const { title, description, deadline, status } = cust;
-    if (!title || !description || !deadline || !status) {
-      alert("すべてのフィールドを入力してください");
-      return;
-    }
-    console.log("Sending data:", { title, description, deadline, status });
-    try {
-      const response = await custService.addCust(
-        title,
-        description,
-        deadline,
-        status
-      ); // 顧客情報を追加するためのAPI呼び出し
-      console.log(response.data);
-      alert("顧客情報が正常に追加されました");
-      resetForm(); // フォームをリセット
-    } catch (error) {
-      console.error("Error adding Cust:", error);
-      alert("顧客情報の追加中にエラーが発生しました");
-    }
+  // 検索キーワードが空になったら検索結果をリセット
+useEffect(() => {
+  if (searchTerm.trim() === "") {
+    setFilteredCusts(custs);
+  }
+}, [searchTerm, custs]);  // searchTerm または custs に変化があった時に反応
+
+
+  // 顧客情報追加の関数（単純なページ遷移）
+  const handleAddCust = () => {
+    // 新規顧客の追加なしで単純に遷移させる
+    navigate("/custs/edit/新規顧客ID");  // ここで新規顧客IDに遷移（仮のID）
   };
 
+  // ログアウト処理
   const handleLogout = () => {
-    localStorage.removeItem("token"); // ローカルストレージからトークンを削除
-    navigate("/"); // ログイン画面に遷移
+    localStorage.removeItem("token");
+    navigate("/");  // ログイン画面に遷移
   };
 
   return (
     <div>
-      <h2>顧客情報の新規追加</h2>
+      <h2>顧客一覧</h2>
       <div className="textBox">
-        <input
-          type="text"
-          placeholder="顧客情報タイトル"
-          value={Cust.title}
-          onChange={(e) => setCust(e.target.value)}
-        />
-        <br />
-        <textarea
-          placeholder="顧客情報の説明"
-          value={cust.description}
-          onChange={(e) => setCust(e.target.value)}
-          rows="2"
-        />
-        <br />
-        <div className="inputRow">
-          <div className="inputGroup">
-            <label>期限</label>
-            <input
-              type="date"
-              id="dateInput"
-              value={cust.deadline}
-              onChange={(e) => setCust(e.target.value)}
-            />
-          </div>
-          <div className="inputGroup">
-            <label>ステータス</label>
-            <select
-              value={cust.status}
-              onChange={(e) => setCust(e.target.value)}
-            >
-              {statusOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
+        <div className="search">
+          <input
+            type="text"
+            placeholder="顧客名で検索"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}  // 検索キーワード更新
+          />
+          <br />
+          <button onClick={handleSearchCust}>フィルタリング</button>  {/* 絞り込みボタン */}
+          <button onClick={handleAddCust}>顧客情報追加</button>
         </div>
+        <br />
+
+        {/* filteredCustsをCustListに渡す */}
+        <CustList custs={filteredCusts} /> {/* 顧客管理一覧コンポーネントを表示 */}
+
         <div className="buttonContainer">
-          <button onClick={handleAddCust}>追加</button>
           <button onClick={handleLogout}>ログアウト</button>
         </div>
       </div>

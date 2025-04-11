@@ -2,6 +2,10 @@
 const mysql = require("mysql2");
 require("dotenv").config(); // 環境変数を読み込む
 
+console.log("DB Host:", process.env.DB_HOST); // 環境変数の確認
+console.log("DB User:", process.env.DB_USER);
+console.log("DB Name:", process.env.DB_NAME);
+
 // MySQLデータベースへの接続プールを作成
 const db = mysql.createPool({
   host: process.env.DB_HOST, // データベースサーバーのホスト名

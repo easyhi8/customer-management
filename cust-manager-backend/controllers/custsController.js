@@ -1,11 +1,16 @@
 // custsController.js
-const custModel = require("../models/taskModel");
+const custModel = require("../models/custModel");
 
 // エラーハンドリング関数
 const handleError = (res, error, message) => {
-  console.error("データベースエラー:", error);
-  res.status(500).send(message);
+  console.error("データベースエラー:", error);  // 詳細なエラー内容をログに出力
+  res.status(500).json({
+    message: message,
+    error: error.message || error,  // エラーメッセージをフロントエンドに返す
+  });
 };
+
+
 
 // 全顧客情報を取得する
 const getAllCusts = async (req, res) => {
@@ -18,7 +23,7 @@ const getAllCusts = async (req, res) => {
 };
 
 // 単一の顧客情報を取得する
-const getcust = async (req, res) => {
+const getCust = async (req, res) => {
   const custId = req.params.id; // URLパラメータからIDを取得
   try {
     const cust = await custModel.getCust(custId);
@@ -31,9 +36,9 @@ const getcust = async (req, res) => {
 
 // 新しい顧客情報を追加する
 const addCust = async (req, res) => {
-  const { title, description, deadline, status } = req.body; // リクエストボディからデータを取得
+  const { name, email, phone, address, company } = req.body; // リクエストボディからデータを取得
   try {
-    const custId = await custModel.addCust({ title, description, deadline, status });
+    const custId = await custModel.addCust({ name, email, phone, address, company });
     res.status(201).send(`顧客情報が正常に追加されました: ${custId}`);
   } catch (error) {
     handleError(res, error, "顧客情報の追加に失敗しました");
@@ -43,15 +48,18 @@ const addCust = async (req, res) => {
 // 顧客情報を更新する
 const updateCust = async (req, res) => {
   const custId = req.params.id; // URLパラメータからIDを取得
-  const { title, description, deadline, status } = req.body;
+  const { name, email, phone, address, company } = req.body;
   try {
-    const affectedRows = await custModel.updatecust(custId, { title, description, deadline, status });
-    if (affectedRows === 0) return res.status(404).send("顧客情報が見つかりません");
-    res.send({ custId, title, description, deadline, status });
+    const affectedRows = await custModel.updateCust(custId, { name, email, phone, address, company });
+    if (affectedRows === 0) {
+      return res.status(404).send("顧客情報が見つかりません");
+    }
+    res.send({ custId, name, email, phone, address, company });
   } catch (error) {
     handleError(res, error, "顧客情報の更新に失敗しました");
   }
 };
+
 
 //  顧客情報を削除する
 const deleteCust = async (req, res) => {

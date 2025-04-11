@@ -16,7 +16,6 @@ function CustPage() {
 
   return (
     <div className="CustPage">
-      <h1>顧客管理管理ページ</h1>
       <CustForm addCust={addCust} />{" "}
       {/* 顧客管理追加フォームを表示。addCust関数をpropとして渡す */}
     </div>

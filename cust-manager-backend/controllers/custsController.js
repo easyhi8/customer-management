@@ -36,9 +36,9 @@ const getCust = async (req, res) => {
 
 // 新しい顧客情報を追加する
 const addCust = async (req, res) => {
-  const { name, email, phone, company } = req.body; // リクエストボディからデータを取得
+  const { name, email, phone, address, company } = req.body; // リクエストボディからデータを取得
   try {
-    const custId = await custModel.addCust({ name, email, phone, company });
+    const custId = await custModel.addCust({ name, email, phone, address, company });
     res.status(201).send(`顧客情報が正常に追加されました: ${custId}`);
   } catch (error) {
     handleError(res, error, "顧客情報の追加に失敗しました");
@@ -48,15 +48,18 @@ const addCust = async (req, res) => {
 // 顧客情報を更新する
 const updateCust = async (req, res) => {
   const custId = req.params.id; // URLパラメータからIDを取得
-  const { name, email, phone, company } = req.body;
+  const { name, email, phone, address, company } = req.body;
   try {
-    const affectedRows = await custModel.updatecust(custId, { name, email, phone, company });
-    if (affectedRows === 0) return res.status(404).send("顧客情報が見つかりません");
-    res.send({ custId, name, email, phone, company });
+    const affectedRows = await custModel.updateCust(custId, { name, email, phone, address, company });
+    if (affectedRows === 0) {
+      return res.status(404).send("顧客情報が見つかりません");
+    }
+    res.send({ custId, name, email, phone, address, company });
   } catch (error) {
     handleError(res, error, "顧客情報の更新に失敗しました");
   }
 };
+
 
 //  顧客情報を削除する
 const deleteCust = async (req, res) => {

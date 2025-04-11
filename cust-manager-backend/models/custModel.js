@@ -32,13 +32,13 @@ const getCust = (id) => {
 
 // 顧客情報を追加する
 const addCust = (cust) => {
-  const { name, email, phone, company } = cust;
+  const { name, email, phone, address, company } = cust;
   return new Promise((resolve, reject) => {
     const sqlInsert =
-      "INSERT INTO custs (name, email, phone, company) VALUES (?, ?, ?, ?)";
+      "INSERT INTO custs (name, email, phone, address, company) VALUES (?, ?, ?, ?, ?)";
     db.query(
       sqlInsert,
-      [name, email, phone, company],
+      [name, email, phone, address, company],  // 正しい順番でデータを挿入
       (err, result) => {
         if (err) return reject(err);
         resolve(result.insertId); // 新しく追加された顧客情報のIDを返す
@@ -47,15 +47,16 @@ const addCust = (cust) => {
   });
 };
 
+
 // 顧客情報を更新する
 const updateCust = (id, cust) => {
-  const { name, email, phone, company } = cust;
+  const { name, email, phone, address, company } = cust;
   return new Promise((resolve, reject) => {
     const sqlUpdate =
-      "UPDATE custs SET name = ?, email = ?, phone = ?, company = ? WHERE id = ?";
+      "UPDATE custs SET name = ?, email = ?, phone = ?, address = ?, company = ? WHERE id = ?";
     db.query(
       sqlUpdate,
-      [name, email, phone, company, id],
+      [name, email, phone, address, company, id],
       (err, result) => {
         if (err) return reject(err);
         resolve(result.affectedRows); // 更新された行数を返す

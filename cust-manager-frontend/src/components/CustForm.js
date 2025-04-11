@@ -32,6 +32,14 @@ const CustForm = ({ addCust }) => {
     setFilteredCusts(filtered);  // 絞り込んだ顧客情報を更新
   };
 
+  // 検索キーワードが空になったら検索結果をリセット
+useEffect(() => {
+  if (searchTerm.trim() === "") {
+    setFilteredCusts(custs);
+  }
+}, [searchTerm, custs]);  // searchTerm または custs に変化があった時に反応
+
+
   // 顧客情報追加の関数（単純なページ遷移）
   const handleAddCust = () => {
     // 新規顧客の追加なしで単純に遷移させる

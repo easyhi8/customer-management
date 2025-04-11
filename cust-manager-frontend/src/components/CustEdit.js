@@ -29,21 +29,24 @@ const CustEdit = () => {
       alert("すべてのフィールドを入力してください");
       return;
     }
+  
     try {
-      // APIを使用して顧客情報を更新
-      await axios.put(`${API_BASE_URL}/${cust.id}`, {
-        name,
-        email,
-        phone,
-        address,
-        company,
-      });
-      alert("顧客情報が更新されました");
-      navigate(`/custs/${cust.id}`); // 顧客情報詳細ページへ遷移
+      if (cust) {
+        // 更新処理
+        await axios.put(`${API_BASE_URL}/${cust.id}`, custData);
+        alert("顧客情報が更新されました");
+        navigate(`/custs/${cust.id}`);
+      } else {
+        // 新規作成処理
+        await axios.post(API_BASE_URL, custData);
+        alert("顧客情報が追加されました");
+        navigate("/custs");
+      }
     } catch (error) {
-      console.error("顧客情報更新時のエラー:", error);
+      console.error("保存時のエラー:", error);
     }
   };
+  
 
   const handleCancel = () => {
     navigate(`/custs`); // 顧客一覧ページに遷移

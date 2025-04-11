@@ -61,8 +61,10 @@ const AuthForm = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
-        <button onClick={() => handleAuth(true)}>登録</button>
-        <button onClick={() => handleAuth(false)}>ログイン</button>
+        <div className="buttonContainer">
+          <button onClick={() => handleAuth(true)}>登録</button>
+          <button onClick={() => handleAuth(false)}>ログイン</button>
+        </div>
       </div>
     </div>
   );

@@ -44,6 +44,12 @@ body {
 
 /* フォームのスタイル */
 
+.login .textBox {
+  display: flex;
+  flex-direction: column; /* 縦に並べる */
+  align-items: center;     /* 中身を中央寄せ */
+}
+
 h2 {
   text-align: center;
 }
@@ -115,6 +121,10 @@ select {
   transition: background-color 0.3s;  /* 背景カラーの変更にトランジションを追加 */
 }
 
+.login .textBox button {
+  margin: 0 15px;
+}
+
 .detail button {
   margin-left: auto;
   margin-right: 0px;
@@ -147,6 +157,13 @@ select {
   width: 32%;
   margin-top: 10px;
   justify-content: flex-start;  /* ボタンを左寄せ */
+}
+
+.login .textBox .buttonContainer {
+  display: flex;           /* 横並びにするためにflexを使用 */
+  flex-direction: row;     /* 横並びに */
+  justify-content: space-between; /* 中央に配置 */
+  margin-top: 10px;         /* 上に少しスペースを追加 */
 }
 
 .buttonContainer button {
